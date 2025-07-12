@@ -12,7 +12,11 @@ const app = express()
 connectDB()
 
 // Middleware
-app.use(cors())
+
+app.use(cors({
+    origin: 'http://localhost:5173', // frontend origin
+    credentials: true,               // allow cookies or auth headers
+}))
 app.use(express.json())
 
 // Routes
@@ -21,11 +25,11 @@ app.use('/api/results', resultRoutes)
 
 // Root route
 app.get('/', (req, res) => {
-  res.send('Student Result Backend API is running')
+    res.send('Student Result Backend API is running')
 })
 
 // Start server
 const PORT = process.env.PORT || 5050
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`)
+    console.log(`Server started on port ${PORT}`)
 })
